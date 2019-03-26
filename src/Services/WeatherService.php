@@ -3,7 +3,9 @@
 namespace Drupal\weather\Services;
 
 /**
- * Class WeatherService.
+ * Class WeatherService
+ *
+ * @package Drupal\weather\Services
  */
 class WeatherService {
 

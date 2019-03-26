@@ -10,6 +10,11 @@ namespace Drupal\weather\Form;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ * Class WeatherConfigForm
+ *
+ * @package Drupal\weather\Form
+ */
 class WeatherConfigForm extends ConfigFormBase {
 
   /**
