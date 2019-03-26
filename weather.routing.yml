@@ -1,4 +1,4 @@
-hello.content:
+weather.content:
   path: '/weather'
   defaults:
     _controller: '\Drupal\weather\Controller\WeatherController::content'
