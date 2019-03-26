@@ -6,4 +6,5 @@ Used for practicing Drupal 8 module creation
 Rename your module folder to /Weather
 
 Config: /admin/config/weather/config
+
 Module route: /weather
