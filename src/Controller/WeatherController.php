@@ -7,6 +7,8 @@ namespace Drupal\weather\Controller;
 
 class WeatherController {
 
+  var $weather_data;
+
   /**
    * Gets weather data and passes it to the module
    *
@@ -14,23 +16,11 @@ class WeatherController {
    */
   public function content() {
 
-    $config = \Drupal::config('weather.settings');
-
-    $city_id = 0;
-    if(!empty($config->get('city_id'))) {
-      $city_id = $config->get('city_id');
-    }
-
-    $appid = '';
-    if(!empty($config->get('appid'))) {
-      $appid = $config->get('appid');
-    }
-
-    $weather_data = $this->getWeatherDataByID($city_id, $appid);
+    $this->weather_data = $this->getWeatherData();
 
     return array(
       '#theme' => 'weather',
-      '#weather_data' => $weather_data,
+      '#weather_data' => $this->weather_data,
     );
 
   }
@@ -44,9 +34,21 @@ class WeatherController {
    *
    * @return object
    */
-  public function getWeatherDataByID(int $id, string $appid) {
+  public function getWeatherData() {
 
-    $url = 'https://api.openweathermap.org/data/2.5/weather?id=' . $id . '&appid=' . $appid . '&units=metric';
+    $config = \Drupal::config('weather.settings');
+
+    $city_id = 0;
+    if(!empty($config->get('city_id'))) {
+      $city_id = $config->get('city_id');
+    }
+
+    $appid = '';
+    if(!empty($config->get('appid'))) {
+      $appid = $config->get('appid');
+    }
+
+    $url = 'https://api.openweathermap.org/data/2.5/weather?id=' . $city_id . '&appid=' . $appid . '&units=metric';
 
     $curl = curl_init();
     $headers = array();
