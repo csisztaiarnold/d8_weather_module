@@ -13,6 +13,12 @@ use Drupal\Core\Form\FormStateInterface;
 class WeatherConfigForm extends ConfigFormBase {
 
   /**
+   * WeatherConfigForm constructor.
+   */
+  public function __construct() {
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
@@ -29,23 +35,23 @@ class WeatherConfigForm extends ConfigFormBase {
     $form = parent::buildForm($form, $form_state);
     $config = $this->config('weather.settings');
 
-    $form['city_id'] = array(
+    $form['city_id'] = [
 
       '#type' => 'textfield',
       '#title' => $this->t('City ID'),
       '#default_value' => $config->get('city_id'),
       '#required' => TRUE,
 
-    );
+    ];
 
-    $form['appid'] = array(
+    $form['appid'] = [
 
       '#type' => 'textfield',
       '#title' => $this->t('OpenWeatherMap API key'),
       '#default_value' => $config->get('appid'),
       '#required' => TRUE,
 
-    );
+    ];
 
     return $form;
 

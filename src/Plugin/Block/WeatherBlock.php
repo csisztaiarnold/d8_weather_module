@@ -3,7 +3,6 @@
 namespace Drupal\weather\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\weather\Controller\WeatherController;
 
 /**
  * Provides a 'Weather' Block.
@@ -21,13 +20,13 @@ class WeatherBlock extends BlockBase {
    */
   public function build() {
 
-    $controller = new WeatherController;
-    $weather_data = $controller->getWeatherData();
+    $service = \Drupal::service('weather.weather_services');
+    $weather_data = $service->getServiceData();
 
-    return array(
+    return [
       '#theme' => 'weather',
       '#weather_data' => $weather_data,
-    );
+    ];
   }
 
 }
