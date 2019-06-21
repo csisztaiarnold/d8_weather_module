@@ -2,50 +2,72 @@
 
 namespace Drupal\weather\Services;
 
+use \GuzzleHttp\Client;
+use \Drupal\Core\Config\ConfigFactory;
+
 /**
  * Class WeatherService
  *
- * @package Drupal\weather\Services
+ * @package \Drupal\weather\Services
  */
 class WeatherService {
 
   /**
-   * WeatherService constructor.
+   * The Guzzle Http Client.
+   *
+   * @var \GuzzleHttp\Client
    */
-  public function __construct() {
+  protected $httpClient;
+
+  /**
+   * The configuration factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactory
+   */
+  protected $configFactory;
+
+  /**
+   * WeatherService constructor.
+   *
+   * @param \GuzzleHttp\Client $http_client
+   * The Guzzle client.
+   *
+   * @param \Drupal\Core\Config\ConfigFactory $configFactory
+   * The configuration factory.
+   *
+   */
+  public function __construct(Client $http_client, ConfigFactory $configFactory) {
+    $this->httpClient = $http_client;
+    $this->configFactory = $configFactory;
   }
 
   /**
    * Gets the JSON from the OpenWeatherMap API and converts it to an object
    *
-   * @param int     $id
-   * @param string  $appid
+   * @param int $id
+   * @param string $appid
    *
    * @return object
    */
   public function getServiceData() {
-
-    $config = \Drupal::config('weather.settings');
+    $config = $this->configFactory->get('weather.settings');
 
     $city_id = 0;
-    if(!empty($config->get('city_id'))) {
+    if (!empty($config->get('city_id'))) {
       $city_id = $config->get('city_id');
     }
 
     $appid = '';
-    if(!empty($config->get('appid'))) {
+    if (!empty($config->get('appid'))) {
       $appid = $config->get('appid');
     }
 
-    $client = \Drupal::httpClient();
     $url = 'https://api.openweathermap.org/data/2.5/weather?id=' . $city_id . '&appid=' . $appid . '&units=metric';
-
-    $request = $client->get($url);
-    $response = $request->getBody();
+    $response = $this->httpClient->request('GET', $url, ['verify' => FALSE]);
+    $response = $response->getBody();
     $data = json_decode($response);
 
     return $data;
-
   }
 
 }

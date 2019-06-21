@@ -4,7 +4,6 @@ function weather_theme($existing, $type, $theme, $path) {
   return [
     'weather' => [
       'variables' => [
-        'text' => NULL,
         'weather_data' => [],
       ],
     ],
