@@ -70,11 +70,9 @@ class WeatherConfigForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
-
     return [
       'weather.settings',
     ];
-
   }
 
 }

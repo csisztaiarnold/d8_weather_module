@@ -46,7 +46,6 @@ class WeatherBlock extends BlockBase implements ContainerFactoryPluginInterface 
       $plugin_definition,
       $container->get('weather.weather_services')
     );
-
   }
 
   /**

@@ -46,6 +46,10 @@ class WeatherController extends ControllerBase {
    * Gets weather data and passes it to the module.
    *
    * @return array
+   * The weather data array.
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   * The Guzzle exception.
    */
   public function content() {
     $weather_data = $this->weatherService->getServiceData();

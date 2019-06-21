@@ -44,10 +44,11 @@ class WeatherService {
   /**
    * Gets the JSON from the OpenWeatherMap API and converts it to an object
    *
-   * @param int $id
-   * @param string $appid
-   *
    * @return object
+   * The weather data object.
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   * The Guzzle exception.
    */
   public function getServiceData() {
     $config = $this->configFactory->get('weather.settings');
